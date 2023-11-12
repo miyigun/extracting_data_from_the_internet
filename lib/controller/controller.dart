@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 
 class Controller extends ChangeNotifier {
   bool? isLoading;
-  List<UserModelData> users = [];
+
+  PageController pageController=PageController(initialPage: 0);
+
+  List<UserModelData?> users = [];
+  List<UserModelData?> saved=[];
 
   void getData() {
     Service.fetch().then((value) {
@@ -19,5 +23,12 @@ class Controller extends ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  void addSaved(UserModelData model){
+    saved.add(model);
+    users.remove(model);
+
+    notifyListeners();
   }
 }
