@@ -44,51 +44,54 @@ class HomePageState extends ConsumerState<HomePage>{
         ),
         body: LoadingWidget(
           isLoading: watch.isLoading,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 6,
-                    child: OutlinedButton(
-                        onPressed: ()=> read.notSavedButton(),
-                        child: Text(
-                          'Users',
-                          style: TextStyle(
-                            
-                          ),
-                        ),
-                    ),
-                  ),
-                  Spacer(),
-                  Expanded(
-                    flex: 6,
-                    child: OutlinedButton(
-                      onPressed: ()=> read.savedButton(),
-                      child: Text(
-                        'Saved',
-                        style: TextStyle(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 6,
+                      child: OutlinedButton(
+                          onPressed: ()=> read.notSavedButton(),
+                          child: Text(
+                            'Users (${watch.users.length})',
+                            style: const TextStyle(
 
+                            ),
+                          ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      flex: 6,
+                      child: OutlinedButton(
+                        onPressed: ()=> read.savedButton(),
+                        child: Text(
+                          'Saved (${watch.saved.length})',
+                          style: const TextStyle(
+
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: PageView(
-                  controller: watch.pageController,
-                  children: [
-                    notSaved(watch),
-                    saved(watch),
                   ],
-
                 ),
-              ),
-            ],
+                Expanded(
+                  child: PageView(
+                    controller: watch.pageController,
+                    children: [
+                      notSaved(watch),
+                      saved(watch),
+                    ],
+
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
