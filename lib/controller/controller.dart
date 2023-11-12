@@ -11,11 +11,13 @@ class Controller extends ChangeNotifier {
       if (value != null) {
         users = value.data!;
         isLoading = true;
+
+        notifyListeners();
       } else {
         isLoading = false;
+
+        notifyListeners();
       }
     });
-
-    notifyListeners();
   }
 }
