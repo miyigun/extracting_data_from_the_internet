@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class Controller extends ChangeNotifier {
   bool? isLoading;
 
-  PageController pageController=PageController(initialPage: 0);
+  PageController pageController = PageController(initialPage: 0);
 
   List<UserModelData?> users = [];
-  List<UserModelData?> saved=[];
+  List<UserModelData?> saved = [];
 
   void getData() {
     Service.fetch().then((value) {
@@ -25,9 +25,23 @@ class Controller extends ChangeNotifier {
     });
   }
 
-  void addSaved(UserModelData model){
+  void addSaved(UserModelData model) {
     saved.add(model);
     users.remove(model);
+
+    notifyListeners();
+  }
+
+  notSavedButton() {
+    pageController.animateToPage(0,
+        duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
+
+    notifyListeners();
+  }
+
+  savedButton() {
+    pageController.animateToPage(1,
+        duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
 
     notifyListeners();
   }

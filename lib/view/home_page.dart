@@ -25,7 +25,7 @@ class HomePageState extends ConsumerState<HomePage>{
 
   @override
   Widget build(BuildContext context) {
-    //var read=ref.watch(controller);
+    var read=ref.watch(controller);
     var watch=ref.watch(controller);
 
     return MaterialApp(
@@ -49,14 +49,41 @@ class HomePageState extends ConsumerState<HomePage>{
               const SizedBox(
                 height: 20,
               ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 6,
+                    child: OutlinedButton(
+                        onPressed: ()=> read.notSavedButton(),
+                        child: Text(
+                          'Users',
+                          style: TextStyle(
+                            
+                          ),
+                        ),
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    flex: 6,
+                    child: OutlinedButton(
+                      onPressed: ()=> read.savedButton(),
+                      child: Text(
+                        'Saved',
+                        style: TextStyle(
+
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
                 child: PageView(
                   controller: watch.pageController,
                   children: [
                     notSaved(watch),
                     saved(watch),
-
-
                   ],
 
                 ),
