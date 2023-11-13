@@ -62,9 +62,11 @@ class HomePageState extends ConsumerState<HomePage> {
                       flex: 4,
                       child: OutlinedButton(
                         onPressed: () => read.profileButton(),
-                        child: const Text(
+                        child: Text(
                           'Profil',
-                          style: TextStyle(),
+                          style: TextStyle(
+                            color: watch.pageNumber==0 ? Colors.red : Colors.blue,
+                          ),
                         ),
                       ),
                     ),
@@ -75,7 +77,9 @@ class HomePageState extends ConsumerState<HomePage> {
                         onPressed: () => read.notSavedButton(),
                         child: Text(
                           'Kullanıcı (${watch.users.length})',
-                          style: const TextStyle(),
+                          style: TextStyle(
+                            color: watch.pageNumber==1 ? Colors.red : Colors.blue,
+                          ),
                         ),
                       ),
                     ),
@@ -86,7 +90,9 @@ class HomePageState extends ConsumerState<HomePage> {
                         onPressed: () => read.savedButton(),
                         child: Text(
                           'Takip (${watch.saved.length})',
-                          style: const TextStyle(),
+                         style: TextStyle(
+                        color: watch.pageNumber==2 ? Colors.red : Colors.blue,
+                        ),
                         ),
                       ),
                     ),

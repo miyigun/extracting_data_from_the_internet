@@ -7,9 +7,13 @@ class Controller extends ChangeNotifier {
 
   PageController pageController = PageController(initialPage: 0);
 
+  int pageNumber=0;
+
   String profileName='Murat';
   List<UserModelData?> users = [];
   List<UserModelData?> saved = [];
+
+
 
   void getData() {
     Service.fetch().then((value) {
@@ -44,6 +48,8 @@ class Controller extends ChangeNotifier {
     pageController.animateToPage(0,
         duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
 
+    pageNumber=0;
+
     notifyListeners();
   }
 
@@ -51,12 +57,16 @@ class Controller extends ChangeNotifier {
     pageController.animateToPage(1,
         duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
 
+    pageNumber=1;
+
     notifyListeners();
   }
 
   savedButton() {
     pageController.animateToPage(2,
         duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
+
+    pageNumber=2;
 
     notifyListeners();
   }
