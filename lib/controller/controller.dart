@@ -7,6 +7,7 @@ class Controller extends ChangeNotifier {
 
   PageController pageController = PageController(initialPage: 0);
 
+  String profileName='';
   List<UserModelData?> users = [];
   List<UserModelData?> saved = [];
 
@@ -39,15 +40,22 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
-  notSavedButton() {
+  profileButton() {
     pageController.animateToPage(0,
         duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
 
     notifyListeners();
   }
 
-  savedButton() {
+  notSavedButton() {
     pageController.animateToPage(1,
+        duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
+
+    notifyListeners();
+  }
+
+  savedButton() {
+    pageController.animateToPage(2,
         duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
 
     notifyListeners();
