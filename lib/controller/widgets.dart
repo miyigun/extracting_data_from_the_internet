@@ -25,6 +25,58 @@ drawerMenu(index, title , icon) {
   );
 }
 
+Row savedCard(Controller watch, int index,  ){
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+      CircleAvatar(
+        backgroundImage: NetworkImage(
+            watch.saved[index]!.avatar!
+        ),
+        radius: 20,
+      ),
+      Column(
+        children: [
+          Text(
+            "${watch.saved[index]!.firstName ?? ''} ${watch.saved[index]!.lastName ?? ''}",
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            watch.saved[index]!.email ?? '',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: Colors.grey.shade400,
+            ),
+          ),
+        ],
+      ),
+      Container(
+        child: Row(
+          //SmainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.send),
+              iconSize: 18,
+              color: Colors.blue,
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete_sharp),
+              iconSize: 18,
+              color: Colors.red,
+              onPressed: ()=> watch.deleteSaved(watch.saved[index]!),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
 ListView profile(Controller watch) {
   return ListView(
     children: [
@@ -118,32 +170,9 @@ ListView saved(Controller watch) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(
-                watch.saved[index]!.avatar!
-            ),
-            radius: 20,
-          ),
-          title: Text(
-            "${watch.saved[index]!.firstName ?? ''} ${watch.saved[index]!.lastName ?? ''}",
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
-          ),
-          subtitle: Text(
-            watch.saved[index]!.email ?? '',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              color: Colors.grey.shade400,
-            ),
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.delete_sharp),
-            onPressed: ()=> watch.deleteSaved(watch.saved[index]!),
-          ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: savedCard(watch, index),
         ),
       );
     },
