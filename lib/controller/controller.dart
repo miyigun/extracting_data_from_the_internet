@@ -7,7 +7,7 @@ class Controller extends ChangeNotifier {
 
   PageController pageController = PageController(initialPage: 0);
 
-  String profileName='';
+  String profileName='Murat';
   List<UserModelData?> users = [];
   List<UserModelData?> saved = [];
 

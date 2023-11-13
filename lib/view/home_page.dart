@@ -59,12 +59,12 @@ class HomePageState extends ConsumerState<HomePage> {
                 Row(
                   children: [
                     Expanded(
-                      flex: 6,
+                      flex: 4,
                       child: OutlinedButton(
                         onPressed: () => read.profileButton(),
-                        child: Text(
-                          'Profil (${watch.users.length})',
-                          style: const TextStyle(),
+                        child: const Text(
+                          'Profil',
+                          style: TextStyle(),
                         ),
                       ),
                     ),
