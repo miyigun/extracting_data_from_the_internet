@@ -32,6 +32,13 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteSaved(UserModelData model){
+    saved.remove(model);
+    users.add(model);
+
+    notifyListeners();
+  }
+
   notSavedButton() {
     pageController.animateToPage(0,
         duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);

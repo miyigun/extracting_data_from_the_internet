@@ -1,6 +1,7 @@
 
 
 import 'package:extracting_data_from_the_internet/controller/controller.dart';
+import 'package:extracting_data_from_the_internet/view/drawer_widget.dart';
 import 'package:extracting_data_from_the_internet/view/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,18 +30,24 @@ class HomePageState extends ConsumerState<HomePage>{
     var watch=ref.watch(controller);
 
     return MaterialApp(
-      title: 'Extracting Data from the Internet',
+      title: 'Sosyal Medya Uygulaması',
       debugShowCheckedModeBanner: false,
       home : Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 1,
           title: const Text(
-              'Extracting Data from the Internet',
+              'Sosyal Medya Uygulaması',
             style: TextStyle(
               color: Colors.black,
+              fontSize: 12,
+              fontFamily: 'Trajan Pro',
+              fontWeight: FontWeight.bold,
+              wordSpacing: 5.0,
+              letterSpacing: 1.0,
             ),
           ),
+          leading: const DrawerWidget(),
         ),
         body: LoadingWidget(
           isLoading: watch.isLoading,
@@ -56,9 +63,22 @@ class HomePageState extends ConsumerState<HomePage>{
                     Expanded(
                       flex: 6,
                       child: OutlinedButton(
+                        onPressed: ()=> read.notSavedButton(),
+                        child: Text(
+                          'Profil (${watch.users.length})',
+                          style: const TextStyle(
+
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      flex: 6,
+                      child: OutlinedButton(
                           onPressed: ()=> read.notSavedButton(),
                           child: Text(
-                            'Users (${watch.users.length})',
+                            'Kullanıcı (${watch.users.length})',
                             style: const TextStyle(
 
                             ),
@@ -71,7 +91,7 @@ class HomePageState extends ConsumerState<HomePage>{
                       child: OutlinedButton(
                         onPressed: ()=> read.savedButton(),
                         child: Text(
-                          'Saved (${watch.saved.length})',
+                          'Takip (${watch.saved.length})',
                           style: const TextStyle(
 
                           ),
@@ -95,6 +115,53 @@ class HomePageState extends ConsumerState<HomePage>{
           ),
         ),
       ),
+    );
+  }
+
+  ListView profile(Controller watch) {
+    return ListView.separated(
+      shrinkWrap: true,
+      itemCount: watch.users.length,
+      itemBuilder: (BuildContext context, int index){
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  watch.users[index]!.avatar!
+              ),
+              radius: 20,
+            ),
+            title: Text(
+              "${watch.users[index]!.firstName ?? ''} ${watch.users[index]!.lastName ?? ''}",
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Text(
+              watch.users[index]!.email ?? '',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Colors.grey.shade400,
+              ),
+            ),
+            trailing: IconButton(
+              icon: const Icon(Icons.add_sharp),
+              onPressed: ()=> watch.addSaved(watch.users[index]!),
+            ),
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index){
+        return const SizedBox(
+          height: 15,
+        );
+      },
+
     );
   }
 
@@ -130,7 +197,7 @@ class HomePageState extends ConsumerState<HomePage>{
                       ),
                     ),
                     trailing: IconButton(
-                      icon: const Icon(Icons.send_and_archive_outlined),
+                      icon: const Icon(Icons.add_sharp),
                       onPressed: ()=> watch.addSaved(watch.users[index]!),
                     ),
                   ),
@@ -177,8 +244,8 @@ class HomePageState extends ConsumerState<HomePage>{
               ),
             ),
             trailing: IconButton(
-              icon: const Icon(Icons.send_and_archive_outlined),
-              onPressed: ()=> watch.addSaved(watch.saved[index]!),
+              icon: const Icon(Icons.delete_sharp),
+              onPressed: ()=> watch.deleteSaved(watch.saved[index]!),
             ),
           ),
         );

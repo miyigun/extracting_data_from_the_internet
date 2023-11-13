@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class Service {
   static Future<UserModel?> fetch() async {
-    var url=Uri.parse("https://reqres.in/api/users?page=2");
+    var url=Uri.parse("https://reqres.in/api/users?page=1");
     http.Response response;
 
     try {
